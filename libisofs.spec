@@ -6,7 +6,7 @@
 #
 Name     : libisofs
 Version  : 1.4.8
-Release  : 1
+Release  : 2
 URL      : http://files.libburnia-project.org/releases/libisofs-1.4.8.tar.gz
 Source0  : http://files.libburnia-project.org/releases/libisofs-1.4.8.tar.gz
 Source99 : http://files.libburnia-project.org/releases/libisofs-1.4.8.tar.gz.sig
