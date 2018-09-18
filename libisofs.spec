@@ -5,17 +5,17 @@
 # Source0 file verified with key 0xE9CBDFC0ABC0A854 (scdbackup@gmx.net)
 #
 Name     : libisofs
-Version  : 1.4.8
-Release  : 3
-URL      : http://files.libburnia-project.org/releases/libisofs-1.4.8.tar.gz
-Source0  : http://files.libburnia-project.org/releases/libisofs-1.4.8.tar.gz
-Source99 : http://files.libburnia-project.org/releases/libisofs-1.4.8.tar.gz.sig
+Version  : 1.5.0
+Release  : 4
+URL      : http://files.libburnia-project.org/releases/libisofs-1.5.0.tar.gz
+Source0  : http://files.libburnia-project.org/releases/libisofs-1.5.0.tar.gz
+Source99 : http://files.libburnia-project.org/releases/libisofs-1.5.0.tar.gz.asc
 Summary  : ISO9660 filesystem creation library
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: libisofs-lib
+Requires: libisofs-license
 BuildRequires : acl-dev
-BuildRequires : attr-dev
 BuildRequires : pkgconfig(zlib)
 
 %description
@@ -36,20 +36,29 @@ dev components for the libisofs package.
 %package lib
 Summary: lib components for the libisofs package.
 Group: Libraries
+Requires: libisofs-license
 
 %description lib
 lib components for the libisofs package.
 
 
+%package license
+Summary: license components for the libisofs package.
+Group: Default
+
+%description license
+license components for the libisofs package.
+
+
 %prep
-%setup -q -n libisofs-1.4.8
+%setup -q -n libisofs-1.5.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1515693032
+export SOURCE_DATE_EPOCH=1537259607
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -61,8 +70,11 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1515693032
+export SOURCE_DATE_EPOCH=1537259607
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/libisofs
+cp COPYING %{buildroot}/usr/share/doc/libisofs/COPYING
+cp COPYRIGHT %{buildroot}/usr/share/doc/libisofs/COPYRIGHT
 %make_install
 
 %files
@@ -77,4 +89,9 @@ rm -rf %{buildroot}
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libisofs.so.6
-/usr/lib64/libisofs.so.6.84.0
+/usr/lib64/libisofs.so.6.86.0
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/libisofs/COPYING
+/usr/share/doc/libisofs/COPYRIGHT

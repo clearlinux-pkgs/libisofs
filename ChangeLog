@@ -1,3 +1,20 @@
+libisofs-1.5.0.tar.gz Sat Sep 15 2018
+===============================================================================
+* New API call iso_image_get_ignore_aclea(),
+  new iso_image_set_ignore_aclea() and iso_file_source_get_aa_string()
+  flag bit3 to import all xattr namespaces
+* New API calls iso_image_was_blind_attrs(), iso_local_set_attrs_errno().
+* New flag bit7 with iso_local_set_attrs() to avoid unnecessary write attempts.
+* New return value 2 of IsoFileSource.get_aa_string() and iso_local_get_attrs().
+* Now putting user defined padding after appended partitions.
+* Bug fix: Add-on sessions with partition offset claimed too many blocks as
+           size. Regression of version 1.4.8.
+* Bug fix: Long Joliet names without dot were mangled with one character too
+           many. Long Joliet names with leading dot were mangled one char
+           too short.
+* Bug fix: Reading beyond array end for HFS+ production caused SIGSEGV with
+           FreeBSD 11 CLANG -O2. Thanks ASX of GhostBSD.
+
 libisofs-1.4.8.tar.gz Tue Sep 12 2017
 ===============================================================================
 * Bug fix: iso_read_opts_set_no_rockridge() did not prevent reading of root
