@@ -6,7 +6,7 @@
 #
 Name     : libisofs
 Version  : 1.5.0
-Release  : 4
+Release  : 5
 URL      : http://files.libburnia-project.org/releases/libisofs-1.5.0.tar.gz
 Source0  : http://files.libburnia-project.org/releases/libisofs-1.5.0.tar.gz
 Source99 : http://files.libburnia-project.org/releases/libisofs-1.5.0.tar.gz.asc
