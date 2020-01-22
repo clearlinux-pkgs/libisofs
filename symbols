@@ -223,6 +223,7 @@ libisofs.so.6:iso_node_unref
 libisofs.so.6:iso_node_xinfo_get_cloner
 libisofs.so.6:iso_node_xinfo_make_clonable
 libisofs.so.6:iso_node_zf_by_magic
+libisofs.so.6:iso_nowtime
 libisofs.so.6:iso_obtain_msgs
 libisofs.so.6:iso_read_image_features_destroy
 libisofs.so.6:iso_read_image_features_get_size
@@ -331,6 +332,7 @@ libisofs.so.6:iso_write_opts_set_hfsplus
 libisofs.so.6:iso_write_opts_set_iso1999
 libisofs.so.6:iso_write_opts_set_iso_level
 libisofs.so.6:iso_write_opts_set_iso_mbr_part_type
+libisofs.so.6:iso_write_opts_set_iso_type_guid
 libisofs.so.6:iso_write_opts_set_joliet
 libisofs.so.6:iso_write_opts_set_joliet_long_names
 libisofs.so.6:iso_write_opts_set_joliet_longer_paths
@@ -344,6 +346,7 @@ libisofs.so.6:iso_write_opts_set_output_charset
 libisofs.so.6:iso_write_opts_set_overwrite_buf
 libisofs.so.6:iso_write_opts_set_part_like_isohybrid
 libisofs.so.6:iso_write_opts_set_part_offset
+libisofs.so.6:iso_write_opts_set_part_type_guid
 libisofs.so.6:iso_write_opts_set_partition_img
 libisofs.so.6:iso_write_opts_set_prep_img
 libisofs.so.6:iso_write_opts_set_pvd_times

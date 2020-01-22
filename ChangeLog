@@ -1,3 +1,20 @@
+libisofs-1.5.0.tar.gz Sat Oct 26 2019
+===============================================================================
+* New API calls iso_write_opts_set_part_type_guid(),
+  iso_write_opts_set_iso_type_guid()
+* New API call iso_nowtime()
+* New flag bit2 of iso_node_set_acl_text() to be verbous about failures
+* Made libisofs ready for building out-of-source. Thanks Ross Burton.
+* Bug fix: Appended GPT partitions were not covered by the protective MBR
+           partition
+* Bug fix: Multi-session emulation spoiled GPT production.
+           "GPT partitions ... overlap". Regression towards 1.4.8
+* Bug fix: Appending partitions 5 to 8 caused damaged ISO filesystems if not
+           for SUN disk label
+* Bug fix: SIGSEGV happened if options bit 14 of
+           iso_write_opts_set_system_area() is set and no El Torito boot image
+           is defined
+
 libisofs-1.5.0.tar.gz Sat Sep 15 2018
 ===============================================================================
 * New API call iso_image_get_ignore_aclea(),

@@ -5,16 +5,16 @@
 # Source0 file verified with key 0xE9CBDFC0ABC0A854 (scdbackup@gmx.net)
 #
 Name     : libisofs
-Version  : 1.5.0
-Release  : 5
-URL      : http://files.libburnia-project.org/releases/libisofs-1.5.0.tar.gz
-Source0  : http://files.libburnia-project.org/releases/libisofs-1.5.0.tar.gz
-Source99 : http://files.libburnia-project.org/releases/libisofs-1.5.0.tar.gz.asc
+Version  : 1.5.2
+Release  : 6
+URL      : http://files.libburnia-project.org/releases/libisofs-1.5.2.tar.gz
+Source0  : http://files.libburnia-project.org/releases/libisofs-1.5.2.tar.gz
+Source1  : http://files.libburnia-project.org/releases/libisofs-1.5.2.tar.gz.asc
 Summary  : ISO9660 filesystem creation library
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: libisofs-lib
-Requires: libisofs-license
+Requires: libisofs-lib = %{version}-%{release}
+Requires: libisofs-license = %{version}-%{release}
 BuildRequires : acl-dev
 BuildRequires : pkgconfig(zlib)
 
@@ -26,8 +26,9 @@ libisofs
 %package dev
 Summary: dev components for the libisofs package.
 Group: Development
-Requires: libisofs-lib
-Provides: libisofs-devel
+Requires: libisofs-lib = %{version}-%{release}
+Provides: libisofs-devel = %{version}-%{release}
+Requires: libisofs = %{version}-%{release}
 
 %description dev
 dev components for the libisofs package.
@@ -36,7 +37,7 @@ dev components for the libisofs package.
 %package lib
 Summary: lib components for the libisofs package.
 Group: Libraries
-Requires: libisofs-license
+Requires: libisofs-license = %{version}-%{release}
 
 %description lib
 lib components for the libisofs package.
@@ -51,30 +52,39 @@ license components for the libisofs package.
 
 
 %prep
-%setup -q -n libisofs-1.5.0
+%setup -q -n libisofs-1.5.2
+cd %{_builddir}/libisofs-1.5.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1537259607
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1579720862
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1537259607
+export SOURCE_DATE_EPOCH=1579720862
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/libisofs
-cp COPYING %{buildroot}/usr/share/doc/libisofs/COPYING
-cp COPYRIGHT %{buildroot}/usr/share/doc/libisofs/COPYRIGHT
+mkdir -p %{buildroot}/usr/share/package-licenses/libisofs
+cp %{_builddir}/libisofs-1.5.2/COPYING %{buildroot}/usr/share/package-licenses/libisofs/5405311284eab5ab51113f87c9bfac435c695bb9
+cp %{_builddir}/libisofs-1.5.2/COPYRIGHT %{buildroot}/usr/share/package-licenses/libisofs/2236b80df839204a4250cd722f9f2178c77b387a
 %make_install
 
 %files
@@ -89,9 +99,9 @@ cp COPYRIGHT %{buildroot}/usr/share/doc/libisofs/COPYRIGHT
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libisofs.so.6
-/usr/lib64/libisofs.so.6.86.0
+/usr/lib64/libisofs.so.6.88.0
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/libisofs/COPYING
-/usr/share/doc/libisofs/COPYRIGHT
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/libisofs/2236b80df839204a4250cd722f9f2178c77b387a
+/usr/share/package-licenses/libisofs/5405311284eab5ab51113f87c9bfac435c695bb9
