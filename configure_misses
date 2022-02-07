@@ -1,12 +1,12 @@
+Configure miss: const qualifier with iconv() 
+Configure miss: dummy
+Configure miss: dummy presence
+Configure miss: dummy usability
 Configure miss: iconv() in separate -liconv 
 Configure miss: libiconv in -liconv
-Configure miss: const qualifier with iconv() 
-Configure miss: dummy usability
-Configure miss: dummy presence
-Configure miss: dummy
-Configure miss: mt usability
-Configure miss: mt presence
-Configure miss: overridden pkgconfig directory path
-Configure miss: libjte/libjte.h usability
-Configure miss: libjte/libjte.h presence
 Configure miss: libjte/libjte.h
+Configure miss: libjte/libjte.h presence
+Configure miss: libjte/libjte.h usability
+Configure miss: mt presence
+Configure miss: mt usability
+Configure miss: overridden pkgconfig directory path

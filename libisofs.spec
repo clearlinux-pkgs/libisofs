@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xE9CBDFC0ABC0A854 (scdbackup@gmx.net)
 #
 Name     : libisofs
-Version  : 1.5.2
-Release  : 6
-URL      : http://files.libburnia-project.org/releases/libisofs-1.5.2.tar.gz
-Source0  : http://files.libburnia-project.org/releases/libisofs-1.5.2.tar.gz
-Source1  : http://files.libburnia-project.org/releases/libisofs-1.5.2.tar.gz.asc
+Version  : 1.5.4
+Release  : 7
+URL      : http://files.libburnia-project.org/releases/libisofs-1.5.4.tar.gz
+Source0  : http://files.libburnia-project.org/releases/libisofs-1.5.4.tar.gz
+Source1  : http://files.libburnia-project.org/releases/libisofs-1.5.4.tar.gz.asc
 Summary  : ISO9660 filesystem creation library
 Group    : Development/Tools
 License  : GPL-2.0
@@ -52,23 +52,23 @@ license components for the libisofs package.
 
 
 %prep
-%setup -q -n libisofs-1.5.2
-cd %{_builddir}/libisofs-1.5.2
+%setup -q -n libisofs-1.5.4
+cd %{_builddir}/libisofs-1.5.4
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1579720862
+export SOURCE_DATE_EPOCH=1644263268
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -77,14 +77,14 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1579720862
+export SOURCE_DATE_EPOCH=1644263268
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libisofs
-cp %{_builddir}/libisofs-1.5.2/COPYING %{buildroot}/usr/share/package-licenses/libisofs/5405311284eab5ab51113f87c9bfac435c695bb9
-cp %{_builddir}/libisofs-1.5.2/COPYRIGHT %{buildroot}/usr/share/package-licenses/libisofs/2236b80df839204a4250cd722f9f2178c77b387a
+cp %{_builddir}/libisofs-1.5.4/COPYING %{buildroot}/usr/share/package-licenses/libisofs/5405311284eab5ab51113f87c9bfac435c695bb9
+cp %{_builddir}/libisofs-1.5.4/COPYRIGHT %{buildroot}/usr/share/package-licenses/libisofs/2236b80df839204a4250cd722f9f2178c77b387a
 %make_install
 
 %files
@@ -99,7 +99,7 @@ cp %{_builddir}/libisofs-1.5.2/COPYRIGHT %{buildroot}/usr/share/package-licenses
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libisofs.so.6
-/usr/lib64/libisofs.so.6.88.0
+/usr/lib64/libisofs.so.6.91.0
 
 %files license
 %defattr(0644,root,root,0755)

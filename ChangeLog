@@ -1,4 +1,28 @@
-libisofs-1.5.0.tar.gz Sat Oct 26 2019
+libisofs-1.5.4.tar.gz Sun Feb 07 2021
+===============================================================================
+* Bug fix: Large amounts of AAIP data or many long file names could cause with
+           zisofs an unreadable filesystem after the warning "Calculated and
+           written ECMA-119 tree end differ"
+* Bug fix: Big-Endian MIPS Volume Header boot file size was rounded up to
+           full 2048. Thanks René Rebe.
+* Bug fix: El Torito production failed if no catalog path is given and the
+           first boot image path contains no slash
+* Bug fix: zisofs production was wrong on big-endian machines
+* Bug fix: Apple Partition Map entries wrote uninitialized data
+* Bug fix: Appended APM partitions without HFS+ production had start and size 1
+* Switched to usage of libjte-2.0.0
+* Implemented production and reading of zisofs2 for files larger than 4 GiB - 1.
+* New struct iso_zisofs_ctrl version 2
+* New API call iso_stream_get_zisofs_par()
+* New API call iso_stream_zisofs_discard_bpt()
+* New API call iso_image_zisofs_discard_bpt()
+* New flag bits 8 to 15 in API call iso_node_zf_by_magic()
+* New API call iso_zisofs_ctrl_susp_z2()
+* New API call iso_read_opts_set_joliet_map(), new default joliet_map=stripped
+* New API calls iso_read_image_features_tree_loaded() and
+  iso_read_image_features_rr_loaded()
+
+libisofs-1.5.2.tar.gz Sat Oct 26 2019
 ===============================================================================
 * New API calls iso_write_opts_set_part_type_guid(),
   iso_write_opts_set_iso_type_guid()
