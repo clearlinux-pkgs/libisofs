@@ -8,11 +8,11 @@
 # Source0 file verified with key 0xE9CBDFC0ABC0A854 (scdbackup@gmx.net)
 #
 Name     : libisofs
-Version  : 1.5.4
-Release  : 8
-URL      : http://files.libburnia-project.org/releases/libisofs-1.5.4.tar.gz
-Source0  : http://files.libburnia-project.org/releases/libisofs-1.5.4.tar.gz
-Source1  : http://files.libburnia-project.org/releases/libisofs-1.5.4.tar.gz.asc
+Version  : 1.5.6.pl01
+Release  : 9
+URL      : https://files.libburnia-project.org/releases/libisofs-1.5.6.pl01.tar.gz
+Source0  : https://files.libburnia-project.org/releases/libisofs-1.5.6.pl01.tar.gz
+Source1  : https://files.libburnia-project.org/releases/libisofs-1.5.6.pl01.tar.gz.asc
 Summary  : ISO9660 filesystem creation library
 Group    : Development/Tools
 License  : GPL-2.0
@@ -59,15 +59,18 @@ license components for the libisofs package.
 
 
 %prep
-%setup -q -n libisofs-1.5.4
-cd %{_builddir}/libisofs-1.5.4
+%setup -q -n libisofs-1.5.6
+cd %{_builddir}/libisofs-1.5.6
+pushd ..
+cp -a libisofs-1.5.6 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1702015666
+export SOURCE_DATE_EPOCH=1704294984
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -85,12 +88,24 @@ LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 %configure --disable-static
 make  %{?_smp_mflags}
 
+unset PKG_CONFIG_PATH
+pushd ../buildavx2/
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -m64 -march=x86-64-v3 "
+LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+%configure --disable-static
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
+cd ../buildavx2;
+make %{?_smp_mflags} check || :
 
 %install
 export GCC_IGNORE_WERROR=1
@@ -107,12 +122,16 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1702015666
+export SOURCE_DATE_EPOCH=1704294984
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libisofs
-cp %{_builddir}/libisofs-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libisofs/5405311284eab5ab51113f87c9bfac435c695bb9 || :
-cp %{_builddir}/libisofs-%{version}/COPYRIGHT %{buildroot}/usr/share/package-licenses/libisofs/2236b80df839204a4250cd722f9f2178c77b387a || :
+cp %{_builddir}/libisofs-1.5.6/COPYING %{buildroot}/usr/share/package-licenses/libisofs/5405311284eab5ab51113f87c9bfac435c695bb9 || :
+cp %{_builddir}/libisofs-1.5.6/COPYRIGHT %{buildroot}/usr/share/package-licenses/libisofs/2236b80df839204a4250cd722f9f2178c77b387a || :
+pushd ../buildavx2/
+%make_install_v3
+popd
 %make_install
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -125,8 +144,9 @@ cp %{_builddir}/libisofs-%{version}/COPYRIGHT %{buildroot}/usr/share/package-lic
 
 %files lib
 %defattr(-,root,root,-)
+/V3/usr/lib64/libisofs.so.6.92.0
 /usr/lib64/libisofs.so.6
-/usr/lib64/libisofs.so.6.91.0
+/usr/lib64/libisofs.so.6.92.0
 
 %files license
 %defattr(0644,root,root,0755)
